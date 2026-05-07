@@ -11,8 +11,7 @@ import 'izitoast/dist/css/iziToast.min.css';
 const galleryList = document.querySelector('.gallery');
 const loader = document.querySelector('.loader');
 export const loadMoreBtn = document.querySelector('.btn-load-more');
-const SLBInstance = new SimpleLightbox('.gallery-item', {
-  sourceAttr: 'data-origin',
+const SLBInstance = new SimpleLightbox('.gallery-link', {
   captionsData: 'alt',
 });
 
@@ -30,7 +29,8 @@ export function createGallery(images) {
           comments,
           downloads,
         }) => {
-          return `<li class="gallery-item" data-origin="${origin}">
+          return `<li class="gallery-item">
+          <a href="${origin}" class="gallery-link">
               <img src='${preview}' alt='${tags}' />
               <div class="img-desc-container">
                 <div class="img-desc-wrapper">
@@ -50,6 +50,7 @@ export function createGallery(images) {
                     <p>${downloads}</p>
                 </div>
               </div>
+              </a>
           </li>`;
         }
       )

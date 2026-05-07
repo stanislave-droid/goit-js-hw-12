@@ -63,7 +63,11 @@
   cursor: pointer;
 }
 
-.gallery-item > img {
+.gallery-link {
+  display: block;
+}
+
+.gallery-item > .gallery-link > img {
   width: 100%;
   height: 198px;
 }

@@ -38,7 +38,7 @@ async function handleSubmit(event) {
   try {
     const data = await getImagesByQuery(searchedQuery);
     const images = data.hits;
-    amountOfPages = data.totalHits / per_page;
+    amountOfPages = Math.ceil(data.totalHits / per_page);
     if (!images.length) {
       showError(
         'Sorry, there are no images matching your search query. Please try again!'
