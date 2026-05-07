@@ -10,24 +10,27 @@ import 'izitoast/dist/css/iziToast.min.css';
 
 const galleryList = document.querySelector('.gallery');
 const loader = document.querySelector('.loader');
+export const loadMoreBtn = document.querySelector('.btn-load-more');
 const SLBInstance = new SimpleLightbox('.gallery-item', {
   sourceAttr: 'data-origin',
   captionsData: 'alt',
 });
 
 export function createGallery(images) {
-  galleryList.innerHTML = images
-    .map(
-      ({
-        webformatURL: preview,
-        largeImageURL: origin,
-        tags,
-        likes,
-        views,
-        comments,
-        downloads,
-      }) => {
-        return `<li class="gallery-item" data-origin="${origin}">
+  galleryList.insertAdjacentHTML(
+    'beforeend',
+    images
+      .map(
+        ({
+          webformatURL: preview,
+          largeImageURL: origin,
+          tags,
+          likes,
+          views,
+          comments,
+          downloads,
+        }) => {
+          return `<li class="gallery-item" data-origin="${origin}">
               <img src='${preview}' alt='${tags}' />
               <div class="img-desc-container">
                 <div class="img-desc-wrapper">
@@ -48,9 +51,10 @@ export function createGallery(images) {
                 </div>
               </div>
           </li>`;
-      }
-    )
-    .join('');
+        }
+      )
+      .join('')
+  );
   SLBInstance.refresh();
 }
 export function clearGallery() {
@@ -71,4 +75,20 @@ export function showError(message) {
     iconUrl: './img/error-icon.svg',
     position: 'bottomRight',
   });
+}
+export function showMessage(message) {
+  iziToast.show({
+    message,
+    backgroundColor: 'lightblue',
+    messageColor: 'white',
+    position: 'bottomRight',
+  });
+}
+
+export function showLoadMoreButton() {
+  loadMoreBtn.classList.add('is-visible');
+}
+
+export function hideLoadMoreButton() {
+  loadMoreBtn.classList.remove('is-visible');
 }
