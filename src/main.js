@@ -23,6 +23,7 @@ async function handleSubmit(event) {
   event.preventDefault();
   clearGallery();
   hideLoadMoreButton();
+  loadMoreBtn.removeEventListener('click', onLoadMore);
   const input = event.target.elements.searchtext;
   searchedQuery = input.value.trim();
 
@@ -62,8 +63,7 @@ async function handleSubmit(event) {
 
 async function onLoadMore() {
   page++;
-  loadMoreBtn.disabled = true;
-
+  hideLoadMoreButton();
   showLoader();
 
   try {
@@ -80,12 +80,12 @@ async function onLoadMore() {
 
     scrollDown();
 
-    loadMoreBtn.disabled = false;
-
     if (page >= amountOfPages) {
       showMessage("We're sorry, but you've reached the end of search results.");
       hideLoadMoreButton();
       loadMoreBtn.removeEventListener('click', onLoadMore);
+    } else {
+      showLoadMoreButton();
     }
   } catch (error) {
     showError(error.message);
